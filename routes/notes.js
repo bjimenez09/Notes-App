@@ -35,7 +35,7 @@ notes.delete("/:id", (req, res) => {
 
   let deleteNotes = db.filter((item) => item.id !== req.params.id);
 
-  // Rewriting note to db.json
+  // Rewrite note to db.json
   fs.writeFileSync("db/db.json", JSON.stringify(deleteNotes));
   res.json(deleteNotes);
   console.log("Note Deleted");
