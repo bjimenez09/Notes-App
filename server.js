@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connecting route
-require('./routes/routes')(app);
+require('./routes/notes')(app);
 
 // Funciton is being used to listen and bind connections
 app.listen(PORT, function() {
