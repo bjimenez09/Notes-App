@@ -1,19 +1,27 @@
 const express = require("express");
 const path = require("path");
-const fs = require("fs");
+const api = require("./routes/index.js");
 
-// Listening on port 3000
+const PORT = process.env.PORT || 8080;
+
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-app.use(express.urlencoded({ extended: true }));
+// Middleware for parsing JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/api", api);
+
 app.use(express.static("public"));
 
-// Connecting route
-require('./routes/notes')(app);
+// GET Route for homepage
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname), "./public/index.html")
+);
 
-// Funciton is being used to listen and bind connections
-app.listen(PORT, function() {
-    console.log("App listening on PORT: " + PORT);
-}); 
+app.get("/notes", (req, res) =>
+  res.sendFile(path.join(__dirname, "./public/notes.html"))
+);
+
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT}`)
+);
