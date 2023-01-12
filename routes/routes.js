@@ -8,11 +8,13 @@ module.exports = app => {
         if (err) throw err;
 
         const notes = JSON.parse(data);
-
+    
+    // Get route    
     app.get("/api/notes", function(req, res) {
         res.json(notes);
     });
 
+    // Post route
     app.post("/api/notes", function(req, res) {
         let newNote = req.body;
         notes.push(newNote);
